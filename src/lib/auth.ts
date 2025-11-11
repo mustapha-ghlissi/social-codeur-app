@@ -5,6 +5,7 @@ import {
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 import prisma from "./prisma";
+import bcrypt from 'bcrypt';
 
 declare module "next-auth" {
   interface Session {
@@ -12,7 +13,8 @@ declare module "next-auth" {
   }
 
   interface User {
-    phone?: string
+    id: number;
+    phone?: null | string;
   }
 }
 
@@ -72,7 +74,7 @@ export const authOptions: NextAuthOptions = {
         // check to see if passwords match
         const passwordMatch = await bcrypt.compare(
           credentials.password,
-          user.password,
+          user.password ?? "",
         );
 
         if (!passwordMatch) {
@@ -96,7 +98,7 @@ export const authOptions: NextAuthOptions = {
 
       return true;
     },
-    async jwt({ token, account }) {
+    async jwt({ token, account }: any) {
       if (account) {
         // First-time login, save the `access_token`, its expiry and the `refresh_token`
         return {
