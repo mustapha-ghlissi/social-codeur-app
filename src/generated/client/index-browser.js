@@ -126,8 +126,11 @@ exports.Prisma.UserScalarFieldEnum = {
   id: 'id',
   name: 'name',
   email: 'email',
+  phone: 'phone',
+  password: 'password',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
+  picture: 'picture',
   facebookToken: 'facebookToken',
   linkedInToken: 'linkedInToken',
   xToken: 'xToken',
@@ -143,6 +146,16 @@ exports.Prisma.UserScalarFieldEnum = {
   wechatToken: 'wechatToken'
 };
 
+exports.Prisma.PostScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  content: 'content',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  published: 'published',
+  authorId: 'authorId'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -155,7 +168,8 @@ exports.Prisma.NullsOrder = {
 
 
 exports.Prisma.ModelName = {
-  User: 'User'
+  User: 'User',
+  Post: 'Post'
 };
 
 /**

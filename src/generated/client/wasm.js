@@ -98,8 +98,11 @@ exports.Prisma.UserScalarFieldEnum = {
   id: 'id',
   name: 'name',
   email: 'email',
+  phone: 'phone',
+  password: 'password',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
+  picture: 'picture',
   facebookToken: 'facebookToken',
   linkedInToken: 'linkedInToken',
   xToken: 'xToken',
@@ -115,6 +118,16 @@ exports.Prisma.UserScalarFieldEnum = {
   wechatToken: 'wechatToken'
 };
 
+exports.Prisma.PostScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  content: 'content',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  published: 'published',
+  authorId: 'authorId'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -127,7 +140,8 @@ exports.Prisma.NullsOrder = {
 
 
 exports.Prisma.ModelName = {
-  User: 'User'
+  User: 'User',
+  Post: 'Post'
 };
 /**
  * Create the Client
@@ -168,7 +182,6 @@ const config = {
     "db"
   ],
   "activeProvider": "sqlserver",
-  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
@@ -177,13 +190,13 @@ const config = {
       }
     }
   },
-  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"../src/generated/client\"\n}\n\ndatasource db {\n  provider = \"sqlserver\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel User {\n  id             String   @id @default(cuid())\n  name           String?\n  email          String?  @unique\n  createdAt      DateTime @default(now()) @map(name: \"created_at\")\n  updatedAt      DateTime @updatedAt @map(name: \"updated_at\")\n  facebookToken  String?  @map(\"facebook_token\")\n  linkedInToken  String?  @map(\"linkedin_token\")\n  xToken         String?  @map(\"x_token\")\n  youtubeToken   String?  @map(\"youtube_token\")\n  tiktokToken    String?  @map(\"tiktok_token\")\n  telegramToken  String?  @map(\"telegram_token\")\n  instagramToken String?  @map(\"instagram_token\")\n  pinterestToken String?  @map(\"pinterest_token\")\n  redditToken    String?  @map(\"reddit_token\")\n  googleToken    String?  @map(\"google_token\")\n  blueskyToken   String?  @map(\"bluesky_token\")\n  whatsappToken  String?  @map(\"whatsapp_token\")\n  wechatToken    String?  @map(\"wechat_token\")\n\n  @@map(name: \"users\")\n}\n",
-  "inlineSchemaHash": "fa7c524f097538001d79f8d6aa040d4c35dc972b6ba304f4825766256b7936c1",
+  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"../src/generated/client\"\n}\n\ndatasource db {\n  provider = \"sqlserver\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel User {\n  id             Int      @id @default(autoincrement())\n  name           String?\n  email          String?  @unique\n  phone          String?  @db.VarChar(16)\n  password       String?\n  createdAt      DateTime @default(now()) @map(name: \"created_at\")\n  updatedAt      DateTime @updatedAt @map(name: \"updated_at\")\n  picture        String?\n  facebookToken  String?  @map(\"facebook_token\")\n  linkedInToken  String?  @map(\"linkedin_token\")\n  xToken         String?  @map(\"x_token\")\n  youtubeToken   String?  @map(\"youtube_token\")\n  tiktokToken    String?  @map(\"tiktok_token\")\n  telegramToken  String?  @map(\"telegram_token\")\n  instagramToken String?  @map(\"instagram_token\")\n  pinterestToken String?  @map(\"pinterest_token\")\n  redditToken    String?  @map(\"reddit_token\")\n  googleToken    String?  @map(\"google_token\")\n  blueskyToken   String?  @map(\"bluesky_token\")\n  whatsappToken  String?  @map(\"whatsapp_token\")\n  wechatToken    String?  @map(\"wechat_token\")\n  posts          Post[]\n\n  @@map(name: \"users\")\n}\n\nmodel Post {\n  id        Int      @id @default(autoincrement())\n  title     String\n  content   String\n  createdAt DateTime @default(now()) @map(name: \"created_at\")\n  updatedAt DateTime @updatedAt @map(name: \"updated_at\")\n  published Boolean  @default(false)\n  author    User?    @relation(fields: [authorId], references: [id])\n  authorId  Int?     @map(name: \"author_id\")\n}\n",
+  "inlineSchemaHash": "ac29138e096d0128b39eebd4f691dc675e71ef69aa9ffecd39e962c4f9b7166d",
   "copyEngine": true
 }
 config.dirname = '/'
 
-config.runtimeDataModel = JSON.parse("{\"models\":{\"User\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\",\"dbName\":\"created_at\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\",\"dbName\":\"updated_at\"},{\"name\":\"facebookToken\",\"kind\":\"scalar\",\"type\":\"String\",\"dbName\":\"facebook_token\"},{\"name\":\"linkedInToken\",\"kind\":\"scalar\",\"type\":\"String\",\"dbName\":\"linkedin_token\"},{\"name\":\"xToken\",\"kind\":\"scalar\",\"type\":\"String\",\"dbName\":\"x_token\"},{\"name\":\"youtubeToken\",\"kind\":\"scalar\",\"type\":\"String\",\"dbName\":\"youtube_token\"},{\"name\":\"tiktokToken\",\"kind\":\"scalar\",\"type\":\"String\",\"dbName\":\"tiktok_token\"},{\"name\":\"telegramToken\",\"kind\":\"scalar\",\"type\":\"String\",\"dbName\":\"telegram_token\"},{\"name\":\"instagramToken\",\"kind\":\"scalar\",\"type\":\"String\",\"dbName\":\"instagram_token\"},{\"name\":\"pinterestToken\",\"kind\":\"scalar\",\"type\":\"String\",\"dbName\":\"pinterest_token\"},{\"name\":\"redditToken\",\"kind\":\"scalar\",\"type\":\"String\",\"dbName\":\"reddit_token\"},{\"name\":\"googleToken\",\"kind\":\"scalar\",\"type\":\"String\",\"dbName\":\"google_token\"},{\"name\":\"blueskyToken\",\"kind\":\"scalar\",\"type\":\"String\",\"dbName\":\"bluesky_token\"},{\"name\":\"whatsappToken\",\"kind\":\"scalar\",\"type\":\"String\",\"dbName\":\"whatsapp_token\"},{\"name\":\"wechatToken\",\"kind\":\"scalar\",\"type\":\"String\",\"dbName\":\"wechat_token\"}],\"dbName\":\"users\"}},\"enums\":{},\"types\":{}}")
+config.runtimeDataModel = JSON.parse("{\"models\":{\"User\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"phone\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"password\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\",\"dbName\":\"created_at\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\",\"dbName\":\"updated_at\"},{\"name\":\"picture\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"facebookToken\",\"kind\":\"scalar\",\"type\":\"String\",\"dbName\":\"facebook_token\"},{\"name\":\"linkedInToken\",\"kind\":\"scalar\",\"type\":\"String\",\"dbName\":\"linkedin_token\"},{\"name\":\"xToken\",\"kind\":\"scalar\",\"type\":\"String\",\"dbName\":\"x_token\"},{\"name\":\"youtubeToken\",\"kind\":\"scalar\",\"type\":\"String\",\"dbName\":\"youtube_token\"},{\"name\":\"tiktokToken\",\"kind\":\"scalar\",\"type\":\"String\",\"dbName\":\"tiktok_token\"},{\"name\":\"telegramToken\",\"kind\":\"scalar\",\"type\":\"String\",\"dbName\":\"telegram_token\"},{\"name\":\"instagramToken\",\"kind\":\"scalar\",\"type\":\"String\",\"dbName\":\"instagram_token\"},{\"name\":\"pinterestToken\",\"kind\":\"scalar\",\"type\":\"String\",\"dbName\":\"pinterest_token\"},{\"name\":\"redditToken\",\"kind\":\"scalar\",\"type\":\"String\",\"dbName\":\"reddit_token\"},{\"name\":\"googleToken\",\"kind\":\"scalar\",\"type\":\"String\",\"dbName\":\"google_token\"},{\"name\":\"blueskyToken\",\"kind\":\"scalar\",\"type\":\"String\",\"dbName\":\"bluesky_token\"},{\"name\":\"whatsappToken\",\"kind\":\"scalar\",\"type\":\"String\",\"dbName\":\"whatsapp_token\"},{\"name\":\"wechatToken\",\"kind\":\"scalar\",\"type\":\"String\",\"dbName\":\"wechat_token\"},{\"name\":\"posts\",\"kind\":\"object\",\"type\":\"Post\",\"relationName\":\"PostToUser\"}],\"dbName\":\"users\"},\"Post\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"title\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"content\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\",\"dbName\":\"created_at\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\",\"dbName\":\"updated_at\"},{\"name\":\"published\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"author\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"PostToUser\"},{\"name\":\"authorId\",\"kind\":\"scalar\",\"type\":\"Int\",\"dbName\":\"author_id\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
 defineDmmfProperty(exports.Prisma, config.runtimeDataModel)
 config.engineWasm = {
   getRuntime: async () => require('./query_engine_bg.js'),

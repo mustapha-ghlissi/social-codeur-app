@@ -1,3 +1,4 @@
+import { withNextVideo } from "next-video/process";
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
@@ -9,6 +10,14 @@ const nextConfig: NextConfig = {
     });
     return config;
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "lh3.googleusercontent.com"
+      },
+    ],
+  },
 };
 
-export default nextConfig;
+export default withNextVideo(nextConfig);

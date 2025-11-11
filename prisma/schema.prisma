@@ -15,11 +15,14 @@ datasource db {
 }
 
 model User {
-  id             String   @id @default(cuid())
+  id             Int      @id @default(autoincrement())
   name           String?
   email          String?  @unique
+  phone          String?  @db.VarChar(16)
+  password       String?
   createdAt      DateTime @default(now()) @map(name: "created_at")
   updatedAt      DateTime @updatedAt @map(name: "updated_at")
+  picture        String?
   facebookToken  String?  @map("facebook_token")
   linkedInToken  String?  @map("linkedin_token")
   xToken         String?  @map("x_token")
@@ -33,6 +36,35 @@ model User {
   blueskyToken   String?  @map("bluesky_token")
   whatsappToken  String?  @map("whatsapp_token")
   wechatToken    String?  @map("wechat_token")
+  posts          Post[]
 
   @@map(name: "users")
+}
+
+model Post {
+  id          Int                 @id @default(autoincrement())
+  title       String
+  content     String
+  createdAt   DateTime            @default(now()) @map(name: "created_at")
+  updatedAt   DateTime            @updatedAt @map(name: "updated_at")
+  published   Boolean             @default(false)
+  publishedTo SocialNetworkEnum[] @map("published_to")
+  author      User?               @relation(fields: [authorId], references: [id])
+  authorId    Int?                @map(name: "author_id")
+}
+
+enum SocialNetworkEnum {
+  Facebook = "Facebook",
+  Linkedin = "Linkedin",
+  X = "X",
+  Youtube = "Youtube",
+  Tiktok = "Tiktok",
+  Telegram = "Telegram",
+  Instagram = "Instagram",
+  Pinterest = "Pinterest",
+  Reddit = "Reddit",
+  Google = "Google",
+  Bluesky = "Bluesky",
+  Whatsapp = "Whatsapp",
+  Wechat = "Wechat"
 }

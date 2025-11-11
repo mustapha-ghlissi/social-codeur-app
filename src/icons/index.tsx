@@ -51,6 +51,19 @@ import HorizontaLDots from "./horizontal-dots.svg";
 import ChatIcon from "./chat.svg";
 import MoreDotIcon from "./more-dot.svg";
 import BellIcon from "./bell.svg";
+import FacebookIcon from './facebook.svg';
+import LinkedInIcon from './linkedin.svg';
+import XIcon from './x.com.svg';
+import YoutubeIcon from './youtube.svg';
+import InstagramIcon from './instagram.svg';
+import PinterestIcon from './pinterest.svg';
+import GoogleIcon from './google.svg';
+import RedditIcon from './reddit.svg';
+import TiktokIcon from './tiktok.svg';
+import TelegramIcon from './telegram.svg';
+import WhatsappIcon from './whatsapp.svg';
+import BlueSkyIcon from './bluesky.svg';
+import WeChatIcon from './wechat.svg';
 
 export {
   DownloadIcon,
@@ -106,4 +119,17 @@ export {
   HorizontaLDots,
   ChevronUpIcon,
   ChatIcon,
+  FacebookIcon,
+  LinkedInIcon,
+  XIcon,
+  YoutubeIcon,
+  InstagramIcon,
+  PinterestIcon,
+  GoogleIcon,
+  RedditIcon,
+  TiktokIcon,
+  TelegramIcon,
+  WhatsappIcon,
+  BlueSkyIcon,
+  WeChatIcon
 };

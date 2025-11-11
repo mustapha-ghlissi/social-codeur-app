@@ -1,6 +1,6 @@
 import { Outfit } from 'next/font/google';
 import './globals.css';
-
+import { ToastContainer } from 'react-toastify';
 import { SidebarProvider } from '@/context/SidebarContext';
 import { Providers } from './providers';
 
@@ -18,6 +18,7 @@ export default function RootLayout({
       <body className={`${outfit.className} dark:bg-gray-900`}>
         <Providers>
           <SidebarProvider>{children}</SidebarProvider>
+          <ToastContainer />
         </Providers>
       </body>
     </html>
