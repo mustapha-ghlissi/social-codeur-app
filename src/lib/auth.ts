@@ -10,6 +10,10 @@ declare module "next-auth" {
   interface Session {
     error?: "RefreshTokenError"
   }
+
+  interface User {
+    phone?: string
+  }
 }
 
 declare module "next-auth/jwt" {
