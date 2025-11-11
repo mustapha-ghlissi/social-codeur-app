@@ -11,7 +11,6 @@ import {
   UserCircleIcon,
   ListIcon
 } from "../icons/index";
-import SidebarWidget from "./SidebarWidget";
 
 type NavItem = {
   name: string;
